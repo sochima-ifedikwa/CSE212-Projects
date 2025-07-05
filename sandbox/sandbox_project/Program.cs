@@ -9,5 +9,12 @@ public class Program
         // one of your projects.
 
         Console.WriteLine("Hello Sandbox World!");
+
+        var numbers = new List<int> { 1, 2, 3, 4 };
+
+        foreach (var number in numbers)
+        {
+            Console.WriteLine(number);
+        }
     }
 }
