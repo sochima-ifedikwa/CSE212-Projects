@@ -16,5 +16,10 @@ public class Program
         {
             Console.WriteLine(number);
         }
+
+        for (var index = 0; index < numbers.Count; index++)
+        {
+            Console.WriteLine(numbers[index]);
+        }
     }
 }
