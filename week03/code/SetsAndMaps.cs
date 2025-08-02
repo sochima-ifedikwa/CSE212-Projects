@@ -95,9 +95,39 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        
-        return false;
+        // Remove spaces and convert to lowercase for both words
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+    
+        // If lengths are different, they can't be anagrams
+        if (word1.Length != word2.Length)
+            return false;
+    
+        // Create dictionary to store character counts
+        var charCount = new Dictionary<char, int>();
+    
+        // Count characters in first word
+        foreach (char c in word1)
+        {
+            if (charCount.ContainsKey(c))
+                charCount[c]++;
+            else
+                charCount[c] = 1;
+        }
+    
+        // Check characters in second word
+        foreach (char c in word2)
+        {
+            if (!charCount.ContainsKey(c))
+                return false;
+            
+            charCount[c]--;
+            if (charCount[c] == 0)
+                charCount.Remove(c);
+        }
+    
+        // If dictionary is empty, all characters matched
+        return charCount.Count == 0;
     }
 
     /// <summary>
