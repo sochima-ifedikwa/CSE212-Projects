@@ -174,7 +174,18 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Replace(int oldValue, int newValue)
     {
-        // TODO Problem 4
+        // Start at the head of the list and traverse through all nodes
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            // If we find a matching value, replace it
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+            // Move to the next node
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -204,8 +215,12 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public IEnumerable Reverse()
     {
-        // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var curr = _tail; // Start at the end since this is a backward iteration
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide (yield) each item to the user
+            curr = curr.Prev; // Go backward in the linked list
+        }
     }
 
     public override string ToString()
