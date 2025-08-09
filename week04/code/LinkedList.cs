@@ -136,7 +136,37 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Remove(int value)
     {
-        // TODO Problem 3
+        // If the list is empty, there's nothing to remove
+        if (_head is null)
+            return;
+
+        // If the value is at the head, use RemoveHead
+        if (_head.Data == value)
+        {
+            RemoveHead();
+            return;
+        }
+
+        // If the value is at the tail, use RemoveTail
+        if (_tail!.Data == value)
+        {
+            RemoveTail();
+            return;
+        }
+
+        // Search for the node containing 'value' in the middle of the list
+        Node? curr = _head.Next;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                // Update the pointers to remove the node
+                curr.Prev!.Next = curr.Next;
+                curr.Next!.Prev = curr.Prev;
+                return;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
