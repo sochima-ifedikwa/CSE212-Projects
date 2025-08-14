@@ -14,8 +14,12 @@ public static class Recursion
     /// </summary>
     public static int SumSquaresRecursive(int n)
     {
-        // TODO Start Problem 1
-        return 0;
+        // Base case: if n <= 0, return 0
+        if (n <= 0)
+            return 0;
+            
+        // Recursive case: n^2 + sum of squares up to (n-1)
+        return (n * n) + SumSquaresRecursive(n - 1);
     }
 
     /// <summary>
@@ -39,7 +43,23 @@ public static class Recursion
     /// </summary>
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
-        // TODO Start Problem 2
+        // Base case: if we've built a word of the desired size, add it to results
+        if (word.Length == size)
+        {
+            results.Add(word);
+            return;
+        }
+
+        // Try each letter as the next character in our word
+        for (int i = 0; i < letters.Length; i++)
+        {
+            // Skip this letter if it's already used in our current word
+            if (word.Contains(letters[i]))
+                continue;
+                
+            // Add this letter to our word and recursively try to complete it
+            PermutationsChoose(results, letters, size, word + letters[i]);
+        }
     }
 
     /// <summary>
@@ -96,10 +116,21 @@ public static class Recursion
         if (s == 3)
             return 4;
 
-        // TODO Start Problem 3
+        // Initialize the memoization dictionary if it's null
+        remember ??= new Dictionary<int, decimal>();
 
-        // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        // Check if we've already calculated this value
+        if (remember.ContainsKey(s))
+            return remember[s];
+
+        // Calculate the ways using recursion with memoization
+        decimal ways = CountWaysToClimb(s - 1, remember) + 
+                      CountWaysToClimb(s - 2, remember) + 
+                      CountWaysToClimb(s - 3, remember);
+
+        // Store the result in our memoization dictionary
+        remember[s] = ways;
+
         return ways;
     }
 
