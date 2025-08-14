@@ -149,7 +149,21 @@ public static class Recursion
     /// </summary>
     public static void WildcardBinary(string pattern, List<string> results)
     {
-        // TODO Start Problem 4
+        // Base case: if no wildcards are found, we have a complete binary string
+        int starIndex = pattern.IndexOf('*');
+        if (starIndex == -1)
+        {
+            results.Add(pattern);
+            return;
+        }
+
+        // Get the parts before and after the first wildcard
+        string before = pattern[..starIndex];
+        string after = pattern[(starIndex + 1)..];
+
+        // Recursive case: replace the wildcard with both 0 and 1
+        WildcardBinary(before + "0" + after, results);  // Try with 0
+        WildcardBinary(before + "1" + after, results);  // Try with 1
     }
 
     /// <summary>
