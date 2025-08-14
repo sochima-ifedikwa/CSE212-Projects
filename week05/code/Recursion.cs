@@ -180,9 +180,28 @@ public static class Recursion
         
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
-        // TODO Start Problem 5
-        // ADD CODE HERE
+        // If this position is not valid, return immediately
+        if (!maze.IsValidMove(currPath, x, y))
+            return;
 
-        // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+        // Add current position to the path
+        currPath.Add((x, y));
+
+        // If we've reached the end, add this solution to results
+        if (maze.IsEnd(x, y))
+        {
+            results.Add(currPath.AsString());
+        }
+        else
+        {
+            // Try all possible directions (up, right, down, left)
+            SolveMaze(results, maze, x, y - 1, currPath);  // Up
+            SolveMaze(results, maze, x + 1, y, currPath);  // Right
+            SolveMaze(results, maze, x, y + 1, currPath);  // Down
+            SolveMaze(results, maze, x - 1, y, currPath);  // Left
+        }
+
+        // Remove current position when backtracking
+        currPath.RemoveAt(currPath.Count - 1);
     }
 }
